@@ -3,50 +3,48 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
-        <img src="{{ item.image.url }}" class="rounded-xl">
-    </div>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ item.image.url }}" class="img-fluid rounded-xl">
+        </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
-        <p class="text-gray-500"><strong>Price: </strong>{{ item.price }}</p>
-        <p class="text-gray-500"><strong>Seller: </strong>{{ item.created_by.username }}</p>
+        <div class="col-md-6 pt-5">
+            <h1 class="mb-4">{{ item.name }}</h1>
+            <p class="text-muted"><strong>Price:</strong> {{ item.price }}</p>
+            <p class="text-muted"><strong>Seller:</strong> {{ item.created_by.username }}</p>
     
-        {% if item.description %}
-            <p class="text-gray-700">
-                <strong class="text-gray-500">Description:</strong><br>
-                {{ item.description }}
-            </p>
-        {% endif %}
+            {% if item.description %}
+                <p class="mt-4"><strong class="text-muted">Description:</strong><br>{{ item.description }}</p>
+            {% endif %}
 
-        {% if request.user == item.created_by %}
-            <div class="mt-6 p-6 bg-white rounded-xl">
-                <p>This is your item!</p>
+            {% if request.user == item.created_by %}
+                <div class="mt-6 p-3 bg-light rounded-xl">
+                    <p>This is your item!</p>
 
-                <a href="{% url 'item:edit' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">Edit</a>
-                <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
-            </div>
-        {% else %}  
-            <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
-        {% endif %}
+                    <a href="{% url 'item:edit' item.id %}" class="btn btn-primary mt-3">Edit</a>
+                    <a href="{% url 'item:delete' item.id %}" class="btn btn-danger mt-3">Delete</a>
+                </div>
+            {% else %}
+                <a href="{% url 'conversation:new' item.id %}" class="btn btn-success mt-4">Contact seller</a>
+            {% endif %}
+        </div>
     </div>
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Related items</h2>
+<div class="container py-5">
+    <h2 class="mb-4 text-center">Related items</h2>
 
-    <div class="grid grid-cols-3 gap-3">
+    <div class="row">
         {% for item in related_items %}
-            <div>
-                <a href="{% url 'item:detail' item.id %}">
-                    <div>
-                        <img src="{{ item.image.url }}" class="rounded-t-xl">
-                    </div>
-
-                    <div class="p-6 bg-white rounded-b-xl">
-                        <h2 class="text-2xl">{{ item.name }}</h2>
-                        <p class="text-gray-500">Price: {{ item.price }}</p>
+            <div class="col-md-4 mb-4">
+                <a href="{% url 'item:detail' item.id %}" class="text-decoration-none text-dark">
+                    <div class="card">
+                        <img src="{{ item.image.url }}" class="card-img-top rounded-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text text-muted">Price: {{ item.price }}</p>
+                        </div>
                     </div>
                 </a>
             </div>

@@ -3,19 +3,72 @@
 {% block title %}Log in{% endblock %}
 
 {% block content %}
-<div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
-    <h1 class="mb-6 text-3xl">Log in</h1>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f3f4f6;
+    }
+
+    .login-form {
+        max-width: 400px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .login-form:hover {
+        transform: translateY(-5px);
+    }
+
+    .login-form label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .login-form input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    .login-form button {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+        padding: 12px;
+        background-color: #2c7a7b;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .login-form button:hover {
+        background-color: #1d4f4f;
+    }
+</style>
+
+<div class="login-form">
+    <h1 class="mb-6 text-3xl text-center">Log in</h1>
 
     <form method="post" action=".">
         {% csrf_token %}
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Username</label><br>
+            <label>Username</label>
             {{ form.username }}
         </div>
 
         <div class="mb-3">
-            <label class="inline-block mb-2">Password</label><br>
+            <label>Password</label>
             {{ form.password }}
         </div>
 
@@ -29,7 +82,7 @@
             </div>
         {% endif %}
 
-        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+        <button>Submit</button>
     </form>
 </div>
 {% endblock %}

@@ -1,7 +1,8 @@
 from django import forms 
 
 from .models import Item
-INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
+INPUT_CLASSES = 'style="border: 1px solid #4CAF50; padding: 10px; border-radius: 5px;" placeholder="Enter your text'
+
 class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item
@@ -39,6 +40,9 @@ class EditItemForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'image': forms.FileInput(attrs={
+                'class': INPUT_CLASSES
+            }),
+            'is_sold': forms.CheckboxInput(attrs={
                 'class': INPUT_CLASSES
             })
         }

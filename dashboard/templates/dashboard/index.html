@@ -32,6 +32,9 @@
 <div class="container py-6">
     <br><h2 class="mb-12 text-2xl text-center">Analytics</h2>
 
+    <h1>Sales Comparison Dashboard</h1>
+    <iframe src="{% url 'dashboard:index' %}" width="100%" height="600" frameborder="0"></iframe>
+
     <div class="row row-cols-3 g-4">
         {% for category in categories %}
         <div class="col">

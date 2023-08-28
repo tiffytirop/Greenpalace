@@ -6,13 +6,13 @@ from dash.dependencies import Input, Output
 import pandas as pd
 
 last_week_data = [
-    {'date_field': '2023-08-01', 'total_sold': 10},
-    {'date_field': '2023-08-02', 'total_sold': 15},
+    {'date_field': '2023-08-01', 'is_sold': 10},
+    {'date_field': '2023-08-02', 'is_sold': 15},
 ]
 
 previous_week_data = [
-    {'date_field': '2023-07-25', 'total_sold': 8},
-    {'date_field': '2023-07-26', 'total_sold': 12},
+    {'date_field': '2023-07-25', 'is_sold': 8},
+    {'date_field': '2023-07-26', 'is_sold': 12},
 ]
 
 # Convert the data to pandas DataFrame
@@ -38,13 +38,13 @@ def update_graph(click_data):
         'data': [
             {
                 'x': df_last_week['date_field'],
-                'y': df_last_week['total_sold'],
+                'y': df_last_week['is_sold'],
                 'type': 'bar',
                 'name': 'Last Week'
             },
             {
                 'x': df_previous_week['date_field'],
-                'y': df_previous_week['total_sold'],
+                'y': df_previous_week['is_sold'],
                 'type': 'bar',
                 'name': 'Previous Week'
             }

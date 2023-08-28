@@ -4,7 +4,45 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
 from .models import Category, Item
+import csv
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
 
+#Generate pdf File
+
+def item_pdf(request):
+    buf = io.BytesIO()
+    c= canvas.Canvas(buf,pagesize=letter, bottomup=0)
+    textob = c.beginText()
+    textob.setTextOrigin(inch,inch)
+    # textob.setFont('helvetica',14)
+
+    #lines=[
+    #    'this is line 1',
+    #    'line 2'
+    #] 
+    
+
+    items = Item.objects.all()
+    lines =[]
+
+    for item in items:
+        lines.append(item.name)
+        lines.append(item.description)
+       
+        
+    for line in lines:
+        textob.textLine(line)
+
+    c.drawText(textob)
+    c.showPage()
+    c.save()
+    buf.seek(0)
+
+    return FileResponse(buf, as_attachment=True, filename='item.pdf')
 
 def items(request):
     query = request.GET.get('query', '')

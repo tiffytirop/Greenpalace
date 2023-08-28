@@ -3,25 +3,40 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl">{{ title }}</h1>
+<div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-semibold mb-6 text-center">{{ title }}</h1>
 
-<form method="post" action="." enctype="multipart/form-data">
-    {% csrf_token %}
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
 
-    <div class="space-y-4">
-        {{ form.as_p }}
-    </div>
-
-    {% if form.errors or form.non_field_errors %}
-        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+        <div class="space-y-4">
             {% for field in form %}
-                {{ field.errors }}
+            <div class="text-center">
+                {{ field }}
+            </div>
             {% endfor %}
-
-            {{ form.non_field_errors }}
         </div>
-    {% endif %}
 
-    <button class="mt-6 py-4 px-8 text-lg bg-green-500 hover:bg-black-700 rounded-xl text-white">Submit</button>
-</form>
+        {% if form.errors or form.non_field_errors %}
+            <div class="mt-4 p-4 bg-red-100 text-red-600 rounded-lg">
+                <strong>Error:</strong>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <button class="mt-6 py-3 px-6 bg-green-500 hover:bg-green-700 rounded-lg text-white font-semibold">
+            Submit
+        </button>
+    </form>
+</div>
 {% endblock %}
+

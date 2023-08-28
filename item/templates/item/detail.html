@@ -24,6 +24,9 @@
 
                     <a href="{% url 'item:edit' item.id %}" class="btn btn-primary mt-3">Edit</a>
                     <a href="{% url 'item:delete' item.id %}" class="btn btn-danger mt-3">Delete</a>
+                    <li class='nav-item'>
+                        <a class='nav-link' href={% url 'item:item_pdf'%}>Item Pdf </a>
+                    </li>
                 </div>
             {% else %}
                 <a href="{% url 'conversation:new' item.id %}" class="btn btn-success mt-4">Contact seller</a>
